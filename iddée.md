@@ -1,4 +1,4 @@
-# iddée station essence 
+# iddée station essence
 
 ## Description
 
@@ -56,7 +56,14 @@ et un capacité de carburant (en litre)
 
 ## les prix
 
-*les prix des carburants*
+- les prix des carburants
 
+- le prix du carburant est en litre
 
+- exemple
+        : 1.5€/l de sans plomb 95
+        : 1.8€/l de sans plomb 98
+        : 1.7€/l de gasoil
 
+- les prix des carburants augmenteront a chaque jour jusqu'a la fin de la crise (jamais dans le jeu)
+  
