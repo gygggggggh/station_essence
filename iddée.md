@@ -4,7 +4,7 @@
 
 - vous etes gerant de station essence , cepandant a cause de la guerre en ukraine , les prix des carburants sont en hausse , vous devez donc augmenter vos prix pour pouvoir survivre , mais attention , si vous augmentez trop vos prix , les clients ne viendront plus , et vous serez obligé de fermer votre station
 - vous avez 3 choix : augmenter les prix , baisser les prix , ou ne rien faire
-- vous avez 2 vigiles 
+- vous avez 2 vigiles
 - vous avez 3 ponpes a essence
 - vous commencez avec 20k euros et 1000 litres d'essence de chaque type
 - la sation est ouverte 24h/24 , vous pouvez donc augmenter vos prix quand vous voulez
@@ -23,7 +23,7 @@
 1. une fiate punto
 2. une renault clio
 3. un cybertruck
-4. une SUV
+4. un SUV
 5. un camion 
 6. un scooter
 7. une moto
