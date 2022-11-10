@@ -10,3 +10,8 @@ with open("voitures.csv", "r") as file , open("clients.csv","r") as file2:
 
 print(clients[0][2])
 print(voitures[0][2])
+
+
+k = [voitures[1],clients[1]]
+
+print(k[0][2])
