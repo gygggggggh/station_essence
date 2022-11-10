@@ -6,6 +6,8 @@
 
 - le type de clients sont dans  un fichier csv qui contient les informations sur les types de clients leurs temps de remplissage et leur particularité
 
+![voiture_csv](c_csv.png)
+
 ### 1.2 la gestion des voitures
 
 - les voiture sont dans  un fichier csv qui contient les informations sur les voitures leurs carburant et leur capacité de remplissage
@@ -15,4 +17,5 @@
 ### 1.3 dans python
 
 - nous convertissons les fichiers csv en liste 
+
 
