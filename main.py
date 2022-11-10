@@ -25,18 +25,18 @@ class waiting_line:
     def enfiler(self, x):
         self.file.append(x)
 
-    def defiler(self):
-        if self.est_vide():
-            raise MemoryError("File vide")
-        return self.file.pop(0)
+with open("voitures.csv", "r") as file , open("clients.csv","r") as file2:
+    v = reader(file)
+    c = reader(file2)
+    voitures = list(v)
+    clients = list(c)
 
-
-def random_voiture():
-    return random.choice(voitures)
-
-def random_client():
-    return random.choice(clients)
+print(clients[0][2])
+print(voitures[0][2])
 
 print(random_voiture())
 print(random_client())
 
+k = [voitures[1],clients[1]]
+
+print(k[0][2])

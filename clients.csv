@@ -1,11 +1,9 @@
 clients,temps,special
-lamba , 150 , 1
-lent, 300 , 1
-stupide , 0 , 2
-malin , 200 , 3
-oublie carte , 0 , 4
-pas de regle ,400, 5
-file c*nnard , 150 , 6
-angry , 175 , 7
-cops , 150 , 8
-nargeur , 0 , 9
+lamba ,150,1
+lent,300,1
+stupide ,0,2
+malin ,200,3
+pas de regle ,400,4
+file mechant,150,5
+angry ,175,6
+cops ,150,7
