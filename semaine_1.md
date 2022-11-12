@@ -24,4 +24,3 @@
 
 - la station essence est une **class** qui utlisera la **class File** (vue predecament en cours ) pour combiner les informations des fichiers csv et efiler les informmations dans la  File d'attente de la station essence
 
-- 
