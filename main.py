@@ -2,14 +2,7 @@
 import random
 from csv import reader
 
-with open("voitures.csv" , "r") as v ,open("clients.csv", "r") as c:
-    reader1 = reader(v)
-    reader2 = reader(c)
-    voitures = list(reader1)
-    clients = list(reader2)
-
-
-class waiting_line:
+class File:
     def __init__(self):
         self.file = []
         
@@ -24,6 +17,16 @@ class waiting_line:
     
     def enfiler(self, x):
         self.file.append(x)
+
+
+
+class Pompe:
+    def __init__(self):
+        self.file = File()
+        self.file2 = File()
+        self.file3 = File()
+
+
 
 with open("voitures.csv", "r") as file , open("clients.csv","r") as file2:
     v = reader(file)
