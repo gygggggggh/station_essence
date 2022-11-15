@@ -2,6 +2,13 @@
 import random
 from csv import reader
 
+with open("voitures.csv", "r") as file , open("clients.csv","r") as file2:
+    v = reader(file)
+    c = reader(file2)
+    voitures = list(v)
+    clients = list(c)
+
+
 class File:
     def __init__(self):
         self.file = []
@@ -21,23 +28,32 @@ class File:
 
 
 class Pompe:
-    def __init__(self):
-        self.file = File()
-        self.file2 = File()
-        self.file3 = File()
+    def __init__(self) -> None:
+        self.pompe1 = File()
+        self.pompe2 = File()
+        self.pompe3 = File()
+    def remplir_pompe(self):
+        self.pompe1.enfiler([voitures[random.randint(1, len(voitures)-1)], clients[random.randint(1, len(clients)-1)]])
+        self.pompe2.enfiler([voitures[random.randint(1, len(voitures)-1)], clients[random.randint(1, len(clients)-1)]])
+        self.pompe3.enfiler([voitures[random.randint(1, len(voitures)-1)], clients[random.randint(1, len(clients)-1)]])
+    def __str__(self) -> str:
+        return f"pompe 1 : {self.pompe1} \npompe 2 : {self.pompe2} \npompe 3 : {self.pompe3}"
+
+    def pompe_vide(self):
+        return [self.pompe1.est_vide() , self.pompe2.est_vide() , self.pompe3.est_vide()]
 
 
 
-with open("voitures.csv", "r") as file , open("clients.csv","r") as file2:
-    v = reader(file)
-    c = reader(file2)
-    voitures = list(v)
-    clients = list(c)
+d = Pompe()
+d.remplir_pompe()
+d.remplir_pompe()
+print(d)
+print(d.pompe_vide())
 
-print(clients[0][2])
-print(voitures[0][2])
 
-k = [voitures[1],clients[1]]
 
-print(k[0][2])
+t = [1,2,3,4,5,6,7,8,9,10]
+while True:
 
+    for i in range(random.randint(9, len(t))):
+        print(t[i])
