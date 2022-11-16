@@ -10,12 +10,14 @@ def ouvrir_csv(filename) -> list:
             return list(data)
     except FileNotFoundError:
         print(f"Le fichier {filename} n'existe pas")
+        exit(1)
     except PermissionError:
         print(f"Le fichier {filename} ne peut pas être ouvert")
+        exit(1)
     except Exception as e:
         print(f"Une erreur inconnue est survenue: {e}")
-    return []
-
+        exit(1)
+    
 voitures = ouvrir_csv("voitures.csv")
 clients = ouvrir_csv("clients.csv")
 
