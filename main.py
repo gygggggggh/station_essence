@@ -56,6 +56,7 @@ class Pompe: # yanis
         self.pompe3 = File()
         self.pompes = [self.pompe1, self.pompe2, self.pompe3]
         self.remplir_pompe_debut()
+        
     def random(self) -> int:
         voitures_random = voitures[random.randint(1, len(voitures)-1)]
         clients_random = clients[random.randint(1, len(clients)-1)]
