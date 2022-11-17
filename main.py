@@ -57,21 +57,21 @@ class Pompe: # yanis
         self.pompes = [self.pompe1, self.pompe2, self.pompe3]
         self.remplir_pompe_debut()
         
-    def random(self) -> int:
+    def random(self) -> list:
         voitures_random = voitures[random.randint(1, len(voitures)-1)]
         clients_random = clients[random.randint(1, len(clients)-1)]
         return [voitures_random, clients_random]
 
-    def remplir_pompe_debut(self) -> None:
+    def remplir_pompe_debut(self) -> list:
         self.pompes[0].enfiler(self.random())
         self.pompes[1].enfiler(self.random())
         self.pompes[2].enfiler(self.random())
         return self.pompes
 
-    def remplir_pompe(self) -> None:
+    def remplir_pompe(self) -> list:
         return self.pompes[random.randint(0, 2)].enfiler(self.random())
 
-    def videz_pompe(self, pompe: int):
+    def videz_pompe(self, pompe: int) -> list:
         if self.pompes[pompe-1].est_vide():
             return "la pompe est vide" 
         else:
@@ -91,3 +91,5 @@ if "__main__" == __name__:
     pompe.videz_pompe(1)
     print(pompe)
     print(pompe.pompe_vide())
+
+
