@@ -84,12 +84,71 @@ class Pompe: # yanis
         return [self.pompe1.est_vide(), self.pompe2.est_vide(), self.pompe3.est_vide()]
 
     def covid(self, intensité: int):
-        pass # a faire 
+        if intensité == 1:
+            while not self.pompe1.est_vide():
+                self.pompe1.defiler()
+        elif intensité == 2:
+            while not self.pompe2.est_vide() and not self.pompe1.est_vide():
+                self.pompe2.defiler()
+                self.pompe1.defiler()
+        elif intensité == 3:
+            while not self.pompe3.est_vide() and not self.pompe2.est_vide() and not self.pompe1.est_vide():
+                self.pompe3.defiler()
+                self.pompe2.defiler()
+                self.pompe1.defiler()
+
+    def mutinerie (self, intensité: int) -> list:
+         return self.pompes[random.randint(0,2)].enfiler([["camion essence", "tout", 300*intensité], ["lamda", 200*intensité, 1]])
+
+
+
+
+class Prix : # dylan
+    def __init__(self,  prix_gasoile: float, quantite_gasoile: float, prix_sans_plomb95: float, quantite_sans_plomb95: float, prix_sans_plomb98: float, quantite_sans_plomb98: float , nbr_jour : int) -> None:
+        self.prix_gasoile = prix_gasoile
+        self.quantite_gasoile = quantite_gasoile
+        self.prix_sans_plomb95 = prix_sans_plomb95
+        self.quantite_sans_plomb95 = quantite_sans_plomb95
+        self.prix_sans_plomb98 = prix_sans_plomb98
+        self.quantite_sans_plomb98 = quantite_sans_plomb98
+
+        self.prix = [self.prix_gasoile, self.prix_sans_plomb95, self.prix_sans_plomb98]
+        self.quantite = [self.quantite_gasoile, self.quantite_sans_plomb95, self.quantite_sans_plomb98]
+
+
+
+    def __str__(self) -> str:
+        return f"prix du gasoile : {self.prix_gasoile} €\nquantite du gasoile : {self.quantite_gasoile} L\nprix du sans plomb 95 : {self.prix_sans_plomb95} €\nquantite du sans plomb 95 : {self.quantite_sans_plomb95} L\nprix du sans plomb 98 : {self.prix_sans_plomb98} €\nquantite du sans plomb 98 : {self.quantite_sans_plomb98} L"
+
+    def prix_total(self, type_carburant: int, quantite: float) -> float:
+        return self.prix[type_carburant-1] * quantite
+    
+    def prix_de_vente(self, type_carburant: int, coef_de_vente : int) -> float:
+        if 0.5 < coef_de_vente < 2.5:
+            return f'la loi vous interdit de vendre a ce prix'
+        return self.prix[type_carburant-1] + coef_de_vente 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if "__main__" == __name__:
     pompe = Pompe()
-    pompe.videz_pompe(1)
+    pompe.covid(1)
+    print('2222222222222222222')
     print(pompe)
-    print(pompe.pompe_vide())
-
-

@@ -51,7 +51,7 @@ et un capacité de carburant (en litre)
 
 ## les evenements
 
-### il y aura 4 type d'evenement
+### il y aura 4 type d'evenement avec une itensité de 1 a 3
 
 1. une grève (les fourniseurs de carburants ne vous livreront plus)
 2. une vague de covid (les clients ne viendront plus)
@@ -69,5 +69,5 @@ et un capacité de carburant (en litre)
         : 1.8€/l de sans plomb 98 ( cout du client : 2.1€)
         : 1.7€/l de gasoil (cout du client : 2€)
 
-- les prix des carburants augmenteront a chaque jour jusqu'a la fin de la crise (jamais dans le jeu)
+- les prix des carburants d'achat fluctueront entre 1.5€ et 2€ par litre cepandant vous ne pourez pas vendre en dessous de 0.5€ par litre et en dessus de 2.5€ par litre
   
