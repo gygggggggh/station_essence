@@ -102,8 +102,7 @@ class Pompe: # yanis
 
 
 
-
-class Prix : # dylan
+class Essence : # dylan
     def __init__(self,  prix_gasoile: float, quantite_gasoile: float, prix_sans_plomb95: float, quantite_sans_plomb95: float, prix_sans_plomb98: float, quantite_sans_plomb98: float , nbr_jour : int) -> None:
         self.prix_gasoile = prix_gasoile
         self.quantite_gasoile = quantite_gasoile
@@ -120,9 +119,6 @@ class Prix : # dylan
     def __str__(self) -> str:
         return f"prix du gasoile : {self.prix_gasoile} €\nquantite du gasoile : {self.quantite_gasoile} L\nprix du sans plomb 95 : {self.prix_sans_plomb95} €\nquantite du sans plomb 95 : {self.quantite_sans_plomb95} L\nprix du sans plomb 98 : {self.prix_sans_plomb98} €\nquantite du sans plomb 98 : {self.quantite_sans_plomb98} L"
 
-    def prix_total(self, type_carburant: int, quantite: float) -> float:
-        return self.prix[type_carburant-1] * quantite
-    
     def prix_de_vente(self, type_carburant: int, coef_de_vente : int) -> float:
         if 0.5 < coef_de_vente < 2.5:
             return f'la loi vous interdit de vendre a ce prix'
@@ -130,6 +126,42 @@ class Prix : # dylan
 
 
 
+class Clients:
+    def __init__(self) -> None:
+        self.clients = Pompe().random()[1]
+
+    def __str__(self) -> str:
+        return f"clients : {self.clients}"
+
+    def special(self, vigile: bool) -> int:
+        specialite = self.clients[2]
+        match specialite:
+            case 1:
+                return [150,0]
+            case 2:
+                return [200,0]
+
+            " la flemme de faire les autres  " 
+            case 3:
+                 return 50 if vigile else 200
+            case 4:
+                return 400 if vigile else 50
+            case 5: 
+                return 100 if vigile else 50 
+printClients = Clients()
+print(printClients)
+print(printClients.special())
+
+
+
+class Station : # dylan
+    def __init__(self) -> None:
+        self.pompes = Pompe()
+        self.essence = Essence(1.5, 1000, 1.6, 1000, 1.7, 1000, 1)
+        self.anger = 0
+        self.temps = 2400
+    def __str__(self) -> str:
+        return f"{self.pompes} \n{self.essence}"
 
 
 
@@ -137,7 +169,17 @@ class Prix : # dylan
 
 
 
+'''
 
+
+if __name__ == "__main__":
+    carb =  Essence(1.5, 1000, 1.6, 1000, 1.7, 1000, 1)
+    pompe = Pompe()
+    print(pompe)
+    print(carb)
+    print(pompe.pompe_vide())
+    print(pompe.videz_pompe(1))
+    print(pompe)
 
 
 
@@ -152,3 +194,4 @@ if "__main__" == __name__:
     pompe.covid(1)
     print('2222222222222222222')
     print(pompe)
+'''
