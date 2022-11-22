@@ -136,18 +136,26 @@ class Clients:
     def special(self, vigile: bool) -> int:
         specialite = self.clients[2]
         match specialite:
-            case 1:
+            case "normal":
                 return [150,0]
-            case 2:
-                return [200,0]
+            case "stupide":
+                return [200,10]
+            case "malin":
+                return [50 if vigile else 200, 20]
+            case "fou":
+                return [400 if vigile else 50, 30]
+            case "grilleur": 
+                return [100 if vigile else 50, 40] 
+            case "angry":
+                return [175, 10]
+            case "cops":
+                return [151,random.randint(0, 100)]
+            case _:
+                 print("erreur")
+                 exit(1)
 
-            " la flemme de faire les autres  " 
-            case 3:
-                 return 50 if vigile else 200
-            case 4:
-                return 400 if vigile else 50
-            case 5: 
-                return 100 if vigile else 50 
+                
+                
 printClients = Clients()
 print(printClients)
 print(printClients.special())

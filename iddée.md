@@ -47,7 +47,6 @@ et un capacité de carburant (en litre)
 7. un client coupe la file d'attente (les autres clients seront enervé et deviendront enervé)
 8. un client enervé (il vous n'ecoute pas et vous insultera et vous devrez envoyer un vigile)
 9. un policier (il passerat en priorité et enervera la moitier des clients devant lui)
-10. un client qui vient en voiture electrique il vient juste pour vous narquer (il ne vous payera pas et energvera les autres clients, vous devrez envoyer un vigile)
 
 ## les evenements
 
