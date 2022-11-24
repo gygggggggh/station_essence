@@ -24,8 +24,6 @@
 
 - la station essence est une **class** qui utlisera la **class File** (vue predecament en cours ) pour combiner les informations des fichiers csv et efiler les informmations dans la  File d'attente de la station essence
 
-
-
 ## 3 Structure du code
 
 ### 3.1 le fichier class.py

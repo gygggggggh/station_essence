@@ -102,6 +102,8 @@ class Pompe: # yanis
 
 
 
+
+
 class Essence : # dylan
     def __init__(self,  prix_gasoile: float, quantite_gasoile: float, prix_sans_plomb95: float, quantite_sans_plomb95: float, prix_sans_plomb98: float, quantite_sans_plomb98: float , nbr_jour : int) -> None:
         self.prix_gasoile = prix_gasoile
@@ -113,93 +115,107 @@ class Essence : # dylan
 
         self.prix = [self.prix_gasoile, self.prix_sans_plomb95, self.prix_sans_plomb98]
         self.quantite = [self.quantite_gasoile, self.quantite_sans_plomb95, self.quantite_sans_plomb98]
+        self.prix_vente = [self.prix_gasoile + 0.25  , self.prix_sans_plomb95 + 0.25, self.prix_sans_plomb98 + 0.25]
 
-
+        self.round()
 
     def __str__(self) -> str:
-        return f"prix du gasoile : {self.prix_gasoile} €\nquantite du gasoile : {self.quantite_gasoile} L\nprix du sans plomb 95 : {self.prix_sans_plomb95} €\nquantite du sans plomb 95 : {self.quantite_sans_plomb95} L\nprix du sans plomb 98 : {self.prix_sans_plomb98} €\nquantite du sans plomb 98 : {self.quantite_sans_plomb98} L"
+        return f"prix d'achat du gasoile : {self.prix_gasoile} \nprix du gasoil vendu : {self.prix_vente[0]} \nquantité de gasoil : {self.quantite_gasoile} \n\nprix d'achat du sans plomb 95 : {self.prix_sans_plomb95} \nprix du sans plomb 95 vendu : {self.prix_vente[1]} \nquantité de sans plomb 95 : {self.quantite_sans_plomb95} \n\nprix d'achat du sans plomb 98 : {self.prix_sans_plomb98} \nprix du sans plomb 98 vendu : {self.prix_vente[2]} \nquantité de sans plomb 98 : {self.quantite_sans_plomb98}"
+    def augmenter_prix(self):
+        self.prix_vente[random.randint(0,2)] += random.randint(5, 20) / 100
+    def baisser_prix(self):
+        self.prix_vente[random.randint(0,2)] -= random.randint(5, 20) / 100
 
-    def prix_de_vente(self, type_carburant: int, coef_de_vente : int) -> float:
-        if 0.5 < coef_de_vente < 2.5:
-            return f'la loi vous interdit de vendre a ce prix'
-        return self.prix[type_carburant-1] + coef_de_vente 
+    def round(self):
+        for i in range(3):
+            self.prix_vente[i] = round(self.prix_vente[i], 3)
 
+    def ristoure(self,intensite:int):
+        self.prix_vente[0] -= intensite * 0.1
+        self.prix_vente[1] -= intensite * 0.1
+        self.prix_vente[2] -= intensite * 0.1
+        return self.prix_vente
 
-
-class Clients:
+class Clients: # dylan
     def __init__(self) -> None:
         self.clients = Pompe().random()[1]
 
     def __str__(self) -> str:
         return f"clients : {self.clients}"
 
-    def special(self, vigile: bool) -> int:
+    def special(self, vigile: bool) -> list:
         specialite = self.clients[2]
         match specialite:
             case "normal":
-                return [150,0]
+                return [int(self.clients[1]) ,0]
+            case "lent":
+                return [int(self.clients[1]) ,0]
             case "stupide":
-                return [200,10]
+                return [int(self.clients[1]) ,10]
             case "malin":
-                return [50 if vigile else 200, 20]
+                return [int(self.clients[1]) / 2.5  if vigile else int(self.clients[1]) , 20 if vigile else 0]
             case "fou":
-                return [400 if vigile else 50, 30]
+                return [int(self.clients[1]) / 2.5  if vigile else int(self.clients[1]) , 30 if vigile else 0]
             case "grilleur": 
-                return [100 if vigile else 50, 40] 
+                return [int(self.clients[1]) /2.5  if vigile else int(self.clients[1]) , 40 if vigile else 0]
             case "angry":
-                return [175, 10]
+                return [int(self.clients[1]), 10]
             case "cops":
-                return [151,random.randint(0, 100)]
+                return [int(self.clients[1]),random.randint(0, 40)]
             case _:
                  print("erreur")
                  exit(1)
+    def affichage_clients(self) -> str:
+        return  f"{self.clients[0]} qui prend {self.clients[1]} temps"
 
-                
-                
-printClients = Clients()
-print(printClients)
-print(printClients.special())
 
+# print(Clients().affichage_clients()) 
 
 
 class Station : # dylan
     def __init__(self) -> None:
         self.pompes = Pompe()
-        self.essence = Essence(1.5, 1000, 1.6, 1000, 1.7, 1000, 1)
+        self.Clients = Clients()
+        self.essence = Essence(1.2, 1000, 1.3, 1000, 1.45, 1000, 1)
         self.anger = 0
-        self.temps = 2400
+        self.temps = 2400 * 3 
+        self.jour = 1
+        self.vigiles =  True
+        self.temps_a_retraiter = 0
     def __str__(self) -> str:
-        return f"{self.pompes} \n{self.essence}"
+        return f"{self.pompes}\n \n{self.essence}"
 
+    def augementation(self):
+        print(f"jour {self.jour}")
+        print(f"les gens sont ernervés de {self.anger/10} %")
+        print(f"temps restant : {self.temps}")
+        while True:
+            rep = input(f"voulez-vous augmenter[1] ou baisser[2] le prix de l'essence ? \n ==> ")
+            match rep:
+                case "1":
+                    print("augmentation du prix de l'essence")
+                    print(f"prix avant augmentation : {self.essence.prix_vente}\n")
+                    self.essence.augmenter_prix()
+                    self.essence.round()
+                    break
+                case "2":
+                    print("baisse du prix de l'essence")
+                    print(f"prix avant baisse : {self.essence.prix_vente}\n")
+                    self.essence.baisser_prix()
+                    self.essence.round()
+                    print
+                    break
+                case _:
+                    print("attention, vous devez entrer 1 ou 2\n")
+        print(f"prix après augmentation : {self.essence.prix_vente}\n")
+        print(f"gasoil : {self.essence.prix_vente[0]} \nsans plomb 95 : {self.essence.prix_vente[1]} \nsans plomb 98 : {self.essence.prix_vente[2]}")
 
+    def voiture__clientemps(self):
+        temps_client = self.Clients.special(self.vigiles)[0]
+        return temps_client
+        
 
+print(Station())
 
-
-
-
-'''
-
-
-if __name__ == "__main__":
-    carb =  Essence(1.5, 1000, 1.6, 1000, 1.7, 1000, 1)
-    pompe = Pompe()
-    print(pompe)
-    print(carb)
-    print(pompe.pompe_vide())
-    print(pompe.videz_pompe(1))
-    print(pompe)
-
-
-
-
-
-
-
-
-
-if "__main__" == __name__:
-    pompe = Pompe()
-    pompe.covid(1)
-    print('2222222222222222222')
-    print(pompe)
-'''
+# a = Station()
+# print(a.voiture__clientemps())
