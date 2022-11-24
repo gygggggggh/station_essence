@@ -23,6 +23,7 @@ clients = ouvrir_csv("clients.csv")
 
 
 
+
 class File: # yanis
     ''' creation de la fonction class vue en cours 
      pour la gestion de la classe Pompes ''' 
@@ -57,19 +58,19 @@ class Pompe: # yanis
         self.pompes = [self.pompe1, self.pompe2, self.pompe3]
         self.remplir_pompe_debut()
         
-    def random(self) -> list:
+    def random_pompe(self) -> list:
         voitures_random = voitures[random.randint(1, len(voitures)-1)]
         clients_random = clients[random.randint(1, len(clients)-1)]
         return [voitures_random, clients_random]
 
     def remplir_pompe_debut(self) -> list:
-        self.pompes[0].enfiler(self.random())
-        self.pompes[1].enfiler(self.random())
-        self.pompes[2].enfiler(self.random())
+        self.pompes[0].enfiler(self.random_pompe())
+        self.pompes[1].enfiler(self.random_pompe())
+        self.pompes[2].enfiler(self.random_pompe())
         return self.pompes
 
     def remplir_pompe(self) -> list:
-        return self.pompes[random.randint(0, 2)].enfiler(self.random())
+        return self.pompes[random.randint(0, 2)].enfiler(self.random_pompe())
 
     def videz_pompe(self, pompe: int) -> list:
         if self.pompes[pompe-1].est_vide():
@@ -138,7 +139,7 @@ class Essence : # dylan
 
 class Clients: # dylan
     def __init__(self) -> None:
-        self.clients = Pompe().random()[1]
+        self.clients = Pompe().random_pompe()[1]
 
     def __str__(self) -> str:
         return f"clients : {self.clients}"
@@ -152,8 +153,8 @@ class Clients: # dylan
                 return [int(self.clients[1]) ,0]
             case "stupide":
                 return [int(self.clients[1]) ,10]
-            case "malin":
-                return [int(self.clients[1]) / 2.5  if vigile else int(self.clients[1]) , 20 if vigile else 0]
+            case "maline":
+                return [int(self.clients[1]) / 2.5  if vigile else int(self.clients[1]) , 20 if vigile else 0,]
             case "fou":
                 return [int(self.clients[1]) / 2.5  if vigile else int(self.clients[1]) , 30 if vigile else 0]
             case "grilleur": 
@@ -163,10 +164,11 @@ class Clients: # dylan
             case "cops":
                 return [int(self.clients[1]),random.randint(0, 40)]
             case _:
-                 print("erreur")
-                 exit(1)
+                print("erreur")
+                exit(1)
     def affichage_clients(self) -> str:
         return  f"{self.clients[0]} qui prend {self.clients[1]} temps"
+
 
 
 # print(Clients().affichage_clients()) 
@@ -182,6 +184,7 @@ class Station : # dylan
         self.jour = 1
         self.vigiles =  True
         self.temps_a_retraiter = 0
+        #self.pompes.remplir_pompe_debut() // debug 
     def __str__(self) -> str:
         return f"{self.pompes}\n \n{self.essence}"
 
@@ -210,12 +213,17 @@ class Station : # dylan
         print(f"prix après augmentation : {self.essence.prix_vente}\n")
         print(f"gasoil : {self.essence.prix_vente[0]} \nsans plomb 95 : {self.essence.prix_vente[1]} \nsans plomb 98 : {self.essence.prix_vente[2]}")
 
-    def voiture__clientemps(self):
-        temps_client = self.Clients.special(self.vigiles)[0]
-        return temps_client
-        
+    def sub_temps(self):
+        if  not self.pompes.pompe_vide():
+            return self.Clients.special(self.vigiles)[0]
+        else :
+            return f"la pompe est vide, ils n'y a pas de clients"
 
-print(Station())
 
-# a = Station()
-# print(a.voiture__clientemps())
+
+A = Pompe()
+for i in range(2*10**6):
+    print(Station().sub_temps())
+
+
+
