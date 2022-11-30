@@ -1,1 +1,3 @@
 fix scv et enlever categorie idenifcation 
+
+changer nombre pompope avec n fois

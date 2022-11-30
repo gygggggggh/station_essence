@@ -133,7 +133,7 @@ class Clients: # dylan
                 return [int(self.clients[1]) ,0]
             case "stupide":
                 return [int(self.clients[1]) ,10]
-            case "maline":
+            case "malin":
                 return [int(self.clients[1]) / 2.5  if vigile else int(self.clients[1]) , 20 if vigile else 0,]
             case "fou":
                 return [int(self.clients[1]) / 2.5  if vigile else int(self.clients[1]) , 30 if vigile else 0]
@@ -193,7 +193,7 @@ class Station : # dylan
         print(f"gasoil : {self.essence.prix_vente[0]} \nsans plomb 95 : {self.essence.prix_vente[1]} \nsans plomb 98 : {self.essence.prix_vente[2]}")
 
     def sub_temps(self)-> None:
-        if  not self.pompes.pompe_vide():
+        if   not  self.pompes.pompe_vide():
             return self.Clients.special(self.vigiles)[0]
         else :
             return f"la pompe est vide, ils n'y a pas de clients"
