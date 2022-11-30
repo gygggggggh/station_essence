@@ -53,3 +53,4 @@
 ### 3.2  le fichier main.py 
 
 - il contient la boucle principale du code 
+[![wakatime](https://wakatime.com/badge/user/1dff2156-409d-4a9c-83e3-80e9582fd198/project/b51493e9-3bee-43bd-aea6-798a15f0a435.svg)](https://wakatime.com/badge/user/1dff2156-409d-4a9c-83e3-80e9582fd198/project/b51493e9-3bee-43bd-aea6-798a15f0a435)

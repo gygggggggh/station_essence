@@ -84,22 +84,6 @@ class Pompe: # yanis
     def pompe_vide(self) -> list:
         return [self.pompe1.est_vide(), self.pompe2.est_vide(), self.pompe3.est_vide()]
 
-    def covid(self, intensité: int):
-        if intensité == 1:
-            while not self.pompe1.est_vide():
-                self.pompe1.defiler()
-        elif intensité == 2:
-            while not self.pompe2.est_vide() and not self.pompe1.est_vide():
-                self.pompe2.defiler()
-                self.pompe1.defiler()
-        elif intensité == 3:
-            while not self.pompe3.est_vide() and not self.pompe2.est_vide() and not self.pompe1.est_vide():
-                self.pompe3.defiler()
-                self.pompe2.defiler()
-                self.pompe1.defiler()
-
-    def mutinerie (self, intensité: int) -> list:
-         return self.pompes[random.randint(0,2)].enfiler([["camion essence", "tout", 300*intensité], ["lamda", 200*intensité, 1]])
 
 
 
@@ -131,11 +115,7 @@ class Essence : # dylan
         for i in range(3):
             self.prix_vente[i] = round(self.prix_vente[i], 3)
 
-    def ristoure(self,intensite:int):
-        self.prix_vente[0] -= intensite * 0.1
-        self.prix_vente[1] -= intensite * 0.1
-        self.prix_vente[2] -= intensite * 0.1
-        return self.prix_vente
+   
 
 class Clients: # dylan
     def __init__(self) -> None:
@@ -168,7 +148,6 @@ class Clients: # dylan
                 exit(1)
     def affichage_clients(self) -> str:
         return  f"{self.clients[0]} qui prend {self.clients[1]} temps"
-
 
 
 # print(Clients().affichage_clients()) 
@@ -213,17 +192,33 @@ class Station : # dylan
         print(f"prix après augmentation : {self.essence.prix_vente}\n")
         print(f"gasoil : {self.essence.prix_vente[0]} \nsans plomb 95 : {self.essence.prix_vente[1]} \nsans plomb 98 : {self.essence.prix_vente[2]}")
 
-    def sub_temps(self):
+    def sub_temps(self)-> None:
         if  not self.pompes.pompe_vide():
             return self.Clients.special(self.vigiles)[0]
         else :
             return f"la pompe est vide, ils n'y a pas de clients"
+    def covid(self,intensite: int):
+        if intensite == 1:
+            while not self.pompes.pompe1.est_vide():
+                self.pompes[0].defiler()
+        elif intensite == 2:
+            while not self.pompes.pompe2.est_vide() and not self.pompes.pompe1.est_vide():
+                self.pompes.pompes[0].defiler()
+                self.pompes.pompes[1].defiler()
+        elif intensite == 3:
+            while not self.pompes.pompe3.est_vide() and not self.pompes.pompe2.est_vide() and not self.pompes.pompe1.est_vide():
+                self.pompes[0].defiler()
+                self.pompes[2].defiler()
+                self.pompes[1].defiler()
+        else:
+            print("erreur")
+            exit(1)
+    def mutinerie (self, intensité: int) -> list:
+         return self.pompes[random.randint(0,2)].enfiler([["camion essence", "tout", 300*intensité], ["lamda", 200*intensité, 1]])
 
 
-
-A = Pompe()
-for i in range(2*10**6):
-    print(Station().sub_temps())
-
-
-
+    def ristourne(self, intensité: int) -> list:
+        self.essence.prix_vente[0] -= random.randint(5, 20) / 100
+        self.essence.prix_vente[1] -= random.randint(5, 20) / 100
+        self.essence.prix_vente[2] -= random.randint(5, 20) / 100
+        self.essence.round()
