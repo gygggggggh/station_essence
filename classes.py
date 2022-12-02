@@ -150,8 +150,28 @@ class Clients: # dylan
         return  f"{self.clients[0]} qui prend {self.clients[1]} temps"
 
 
-# print(Clients().affichage_clients()) 
 
+class Voiture: # dylan
+    def __init__(self) -> None:
+        self.voitures = Pompe().random_pompe()[0]
+    def __str__(self) -> str:
+        return f"voiture : {self.voitures}"
+
+    def affichage_voiture(self) -> str:
+        return f"{self.voitures[0]} qui prend {self.voitures[1]} temps"
+    
+    def prelevement(self) -> list:
+        carburant = self.voitures[2]
+        match carburant:
+            case "gasoile":
+                pass
+            case "sans plomb 95":
+                pass
+            case "sans plomb 98":
+                pass
+            case _:
+                print("erreur")
+                exit(1)
 
 class Station : # dylan
     def __init__(self) -> None:
@@ -219,5 +239,3 @@ class Station : # dylan
 
 
 a = Station()   
-
-def main():

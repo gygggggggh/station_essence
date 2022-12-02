@@ -27,14 +27,14 @@
 ### 2.1 la class pompe yanis
 
 - la pompe est une **class** qui utlisera la **class File** (vue predecament en cours ) pour combiner les informations des fichiers csv et efiler les informmations dans la  File d'attente de la station essence
-
+  
 ### 2.2 la class essence dylan
 
-- la class essence est une **class** qui permet de gerer les **prix** des **carburants** et les **evenements** qui peuvent se produire dans la station essence (grève , covid , braquage , ristoure de l'etat) 
+- la class essence est une **class** qui permet de gerer les **prix** des **carburants** et les **evenements** qui peuvent se produire dans la station essence (grève , covid , braquage , ristoure de l'etat)
 
 ### 2.3 la class client dylan
 
-- la class Client est une **class** qui permet de gerer les **clients** et leurs **particularités** et leurs **temps** de **remplissage** 
+- la class Client est une **class** qui permet de gerer les **clients** et leurs **particularités** et leurs **temps** de **remplissage**
 
 ### 2.4 la class voiture yanis
 
@@ -42,7 +42,7 @@
 
 ### 2.5 la class station dylan
 
-- la class Station est une class qui regroupe toutes les autres class et permet de gerer la station essence et ses **clients** , **voitures** , **pompes** , **prix** , **evenements** 
+- la class Station est une class qui regroupe toutes les autres class et permet de gerer la station essence et ses **clients** , **voitures** , **pompes** , **prix**
 
 ## 3 Structure du code
 
@@ -50,7 +50,7 @@
 
 - il contient les class
 
-### 3.2  le fichier main.py 
+### 3.2  le fichier main.py
 
-- il contient la boucle principale du code 
+- il contient la boucle principale du code
 [![wakatime](https://wakatime.com/badge/user/1dff2156-409d-4a9c-83e3-80e9582fd198/project/b51493e9-3bee-43bd-aea6-798a15f0a435.svg)](https://wakatime.com/badge/user/1dff2156-409d-4a9c-83e3-80e9582fd198/project/b51493e9-3bee-43bd-aea6-798a15f0a435)
