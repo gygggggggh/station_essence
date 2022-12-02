@@ -191,12 +191,6 @@ class Station : # dylan
                     print("attention, vous devez entrer 1 ou 2\n")
         print(f"prix après augmentation : {self.essence.prix_vente}\n")
         print(f"gasoil : {self.essence.prix_vente[0]} \nsans plomb 95 : {self.essence.prix_vente[1]} \nsans plomb 98 : {self.essence.prix_vente[2]}")
-
-    def sub_temps(self)-> None:
-        if   not  self.pompes.pompe_vide():
-            return self.Clients.special(self.vigiles)[0]
-        else :
-            return f"la pompe est vide, ils n'y a pas de clients"
     def covid(self,intensite: int):
         if intensite == 1:
             while not self.pompes.pompe1.est_vide():
@@ -222,3 +216,8 @@ class Station : # dylan
         self.essence.prix_vente[1] -= random.randint(5, 20) / 100
         self.essence.prix_vente[2] -= random.randint(5, 20) / 100
         self.essence.round()
+
+
+a = Station()   
+
+def main():
