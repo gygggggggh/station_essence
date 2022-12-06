@@ -106,12 +106,12 @@ class Essence : # dylan
 
     def __str__(self) -> str:
         return f"prix d'achat du gasoile : {self.prix_gasoile} \nprix du gasoil vendu : {self.prix_vente[0]} \nquantité de gasoil : {self.quantite_gasoile} \n\nprix d'achat du sans plomb 95 : {self.prix_sans_plomb95} \nprix du sans plomb 95 vendu : {self.prix_vente[1]} \nquantité de sans plomb 95 : {self.quantite_sans_plomb95} \n\nprix d'achat du sans plomb 98 : {self.prix_sans_plomb98} \nprix du sans plomb 98 vendu : {self.prix_vente[2]} \nquantité de sans plomb 98 : {self.quantite_sans_plomb98}"
-    def augmenter_prix(self):
+    def augmenter_prix(self)-> None:
         self.prix_vente[random.randint(0,2)] += random.randint(5, 20) / 100
-    def baisser_prix(self):
+    def baisser_prix(self) -> None:
         self.prix_vente[random.randint(0,2)] -= random.randint(5, 20) / 100
 
-    def round(self):
+    def round(self) -> None:
         for i in range(3):
             self.prix_vente[i] = round(self.prix_vente[i], 3)
 
@@ -151,9 +151,9 @@ class Clients: # dylan
 
 
 
-class Voiture: # dylan
+class Voiture(Pompe): # dylan
     def __init__(self) -> None:
-        self.voitures = Pompe().random_pompe()[0]
+        super().__init__()
     def __str__(self) -> str:
         return f"voiture : {self.voitures}"
 
@@ -214,21 +214,21 @@ class Station : # dylan
     def covid(self,intensite: int):
         if intensite == 1:
             while not self.pompes.pompe1.est_vide():
-                self.pompes[0].defiler()
+                self.pompes.pompe1.defiler()
         elif intensite == 2:
             while not self.pompes.pompe2.est_vide() and not self.pompes.pompe1.est_vide():
                 self.pompes.pompes[0].defiler()
                 self.pompes.pompes[1].defiler()
         elif intensite == 3:
             while not self.pompes.pompe3.est_vide() and not self.pompes.pompe2.est_vide() and not self.pompes.pompe1.est_vide():
-                self.pompes[0].defiler()
-                self.pompes[2].defiler()
-                self.pompes[1].defiler()
+                self.pompes.pompes[0].defiler()
+                self.pompes.pompes[1].defiler()
+                self.pompes.pompes[2].defiler()
         else:
             print("erreur")
             exit(1)
     def mutinerie (self, intensité: int) -> list:
-         return self.pompes[random.randint(0,2)].enfiler([["camion essence", "tout", 300*intensité], ["lamda", 200*intensité, 1]])
+         return self.pompes.pompes[random.randint(0,2)].enfiler([["camion essence", "tout", 300*intensité], ["lamda", 200*intensité, 1]])
 
 
     def ristourne(self, intensité: int) -> list:
