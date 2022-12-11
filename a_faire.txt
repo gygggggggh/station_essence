@@ -1,3 +1,20 @@
 fix scv et enlever categorie idenifcation 
 
 changer nombre pompope avec n fois
+
+
+ +------------+   +------------+   +--------------+
+ |  users     |   |  videos    |   |  comments    |
+ +------------+   +------------+   +--------------+
+ | user_id    |   | video_id   |   | comment_id   |
+ | username   |   | title      |   | user_id      |
+ | email      |   | description|   | video_id     |
+ | password   |   | thumbnail  |   | comment_text |
+ | created_at |   | url        |   | created_at   |
+ | updated_at |   | views      |   | updated_at   |
+ +------------+   | likes      |   +--------------+
+                   | dislikes   |
+                   | comments   |
+                   | created_at |
+                   | updated_at |
+                   +------------+

@@ -1,11 +1,11 @@
 marque,type,reservoire,
-fiat pundo,diesel,45
+fiat pundo,gasoil,45
 renault clio ,sans_plomb95,55
 cybertruck,sans_plomb95,100
 SUV,sans_plomb95,80
 camion,gasoil,200
 moto,sans_plomb95,10
-scooter custom ,gasoil,7
-bus a essence, sans_plomb98, 300
+scooter custom,gasoil,7
+bus a essence,sans_plomb98, 300
 Tracteur,gasoil,150
-lambo, sans_plomb98, 75
+lambo,sans_plomb98, 75

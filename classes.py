@@ -2,6 +2,15 @@
 import random
 from csv import reader
 
+
+
+
+
+
+
+
+
+
 def ouvrir_csv(filename) -> list: # dylan
     """Ouvre le fichier CSV nommé nom_fichier et renvoie une liste de listes"""
     try:
@@ -50,11 +59,14 @@ class File: # yanis
             raise IndexError("La file est vide")
 
 
+
+
 class Pompe: # yanis 
     def __init__(self) -> None:
         self.pompe1 = File()
         self.pompe2 = File()
         self.pompe3 = File()
+
         self.pompes = [self.pompe1, self.pompe2, self.pompe3]
         self.remplir_pompe_debut()
         
@@ -84,10 +96,14 @@ class Pompe: # yanis
     def pompe_vide(self) -> list:
         return [self.pompe1.est_vide(), self.pompe2.est_vide(), self.pompe3.est_vide()]
 
+    def get_pompes(self,n : int) -> list:
+        return self.pompes[n-1]
 
+    def get_clients(self,n : int) -> list:
+        return self.pompes[n-1].file[0][1]
 
-
-
+    def get_voitures(self,n : int) -> list:
+        return self.pompes[n-1].file[0][0]
 
 class Essence : # dylan
     def __init__(self,  prix_gasoile: float, quantite_gasoile: float, prix_sans_plomb95: float, quantite_sans_plomb95: float, prix_sans_plomb98: float, quantite_sans_plomb98: float , nbr_jour : int) -> None:
@@ -118,74 +134,80 @@ class Essence : # dylan
    
 
 class Clients: # dylan
-    def __init__(self) -> None:
-        self.clients = Pompe().random_pompe()[1]
+    def __init__(self,p1 : list, p2 : list, p3 : list) -> None:
+        self.pompes = [p1, p2, p3]
 
-    def __str__(self) -> str:
-        return f"clients : {self.clients}"
-
-    def special(self, vigile: bool) -> list:
-        specialite = self.clients[2]
+    def special(self, vigile: bool,n : int) -> list:
+        specialite = self.pompes[n].file[0][1][2]
         match specialite:
             case "normal":
-                return [int(self.clients[1]) ,0]
+                return [int(self.pompes[1].file[0][1][1]) ,0]
             case "lent":
-                return [int(self.clients[1]) ,0]
+                return [int(self.pompes[1].file[0][1][1]) ,0]
             case "stupide":
-                return [int(self.clients[1]) ,10]
+                return [int(self.pompes[1].file[0][1][1]) ,10]
             case "malin":
-                return [int(self.clients[1]) / 2.5  if vigile else int(self.clients[1]) , 20 if vigile else 0,]
+                return [int(self.pompes[1].file[0][1][1]) / 2.5  if vigile else int(self.pompes[1].file[0][1][1]) , 20 if vigile else 0,]
             case "fou":
-                return [int(self.clients[1]) / 2.5  if vigile else int(self.clients[1]) , 30 if vigile else 0]
+                return [int(self.pompes[1].file[0][1][1]) / 2.5  if vigile else int(self.pompes[1].file[0][1][1]) , 30 if vigile else 0]
             case "grilleur": 
-                return [int(self.clients[1]) /2.5  if vigile else int(self.clients[1]) , 40 if vigile else 0]
+                return [int(self.pompes[1].file[0][1][1]) /2.5  if vigile else int(self.pompes[1].file[0][1][1]) , 40 if vigile else 0]
             case "angry":
-                return [int(self.clients[1]), 10]
+                return [int(self.pompes[1].file[0][1][1]), 10]
             case "cops":
-                return [int(self.clients[1]),random.randint(0, 40)]
+                return [int(self.pompes[1].file[0][1][1]),random.randint(0, 40)]
             case _:
                 print("erreur")
                 exit(1)
     def affichage_clients(self) -> str:
-        return  f"{self.clients[0]} qui prend {self.clients[1]} temps"
+        return  self.pompes[0] 
 
 
 
-class Voiture(Pompe): # dylan
-    def __init__(self) -> None:
-        super().__init__()
+
+
+
+        
+
+
+class Voiture: # dylan
+    def __init__(self,p1 : list,p2 : list, p3 : list ) -> None:
+        self.voitures = [p1, p2, p3]
     def __str__(self) -> str:
-        return f"voiture : {self.voitures}"
+        return f"voiture : {self.voitures[0]} \nvoiture : {self.voitures[1]} \nvoiture : {self.voitures[2]}"
 
-    def affichage_voiture(self) -> str:
-        return f"{self.voitures[0]} qui prend {self.voitures[1]} temps"
     
-    def prelevement(self) -> list:
-        carburant = self.voitures[2]
-        match carburant:
-            case "gasoile":
-                pass
-            case "sans plomb 95":
-                pass
-            case "sans plomb 98":
-                pass
-            case _:
-                print("erreur")
-                exit(1)
+    def prelevement(self,n : int) -> list:
+        carbu = self.voitures[n].file[0][0][2]
+        return int(carbu)
+    
+    def special(self, n : int) -> list:
+        Essence = str(self.voitures[n].file[0][0][1])
+        return str(Essence)
+
+
+p = Pompe()
+v = Voiture(p.get_pompes(1), p.get_pompes(2), p.get_pompes(3))
+n = 2
+print(v.special(n))
+print(v.prelevement(0))
+
+
 
 class Station : # dylan
     def __init__(self) -> None:
+        self.argent = 10000
         self.pompes = Pompe()
-        self.Clients = Clients()
+        self.Clients =  Clients(self.pompes.get_pompes(1), self.pompes.get_pompes(2), self.pompes.get_pompes(3))
+        self.Voitures = Voiture(self.pompes.get_pompes(1), self.pompes.get_pompes(2), self.pompes.get_pompes(3))
         self.essence = Essence(1.2, 1000, 1.3, 1000, 1.45, 1000, 1)
         self.anger = 0
         self.temps = 2400 * 3 
         self.jour = 1
         self.vigiles =  True
         self.temps_a_retraiter = 0
-        #self.pompes.remplir_pompe_debut() // debug 
     def __str__(self) -> str:
-        return f"{self.pompes}\n \n{self.essence}"
+        return f"{self.pompes}\n \n{self.essence} \n \n{self.Clients}"
 
     def augementation(self):
         print(f"jour {self.jour}")
@@ -198,12 +220,14 @@ class Station : # dylan
                     print("augmentation du prix de l'essence")
                     print(f"prix avant augmentation : {self.essence.prix_vente}\n")
                     self.essence.augmenter_prix()
+                    self.anger += 5
                     self.essence.round()
                     break
                 case "2":
                     print("baisse du prix de l'essence")
                     print(f"prix avant baisse : {self.essence.prix_vente}\n")
                     self.essence.baisser_prix()
+                    self.anger -= 5
                     self.essence.round()
                     print
                     break
@@ -211,6 +235,71 @@ class Station : # dylan
                     print("attention, vous devez entrer 1 ou 2\n")
         print(f"prix après augmentation : {self.essence.prix_vente}\n")
         print(f"gasoil : {self.essence.prix_vente[0]} \nsans plomb 95 : {self.essence.prix_vente[1]} \nsans plomb 98 : {self.essence.prix_vente[2]}")
+
+    def n_clients(self, n: int) -> None:
+        print(f"voici le client de la pompe {n}")
+        print(f"il est de type'{self.pompes.get_clients(n)[0]}' et  il a pris {self.pompes.get_clients(n)[1]} temps \n")
+        if self.pompes.get_clients(n)[3] == "True" :
+            print("il va avoir besoins d'un vigile")
+            if self.vigiles:
+                while True:
+                    print("vous avez un vigile")
+                    rep = input("voulez-vous le l'utiliser ? [1] ou [2] non ? ==> ")
+                    match rep:
+                        case "1":
+                            print("vous avez utilisé un vigile")
+                            self.vigiles = False
+                            clients = self.Clients.special(self.vigiles, n)
+                            self.temps -= clients[0]
+                            self.anger += clients[1]
+                            self.vigiles = False
+                            break
+                        case "2":
+                            print("vous n'avez pas utilisé de vigile")
+                            break
+                        
+                        case _:
+                            print("vous devez entrer 1 ou 2")
+                            rep = input("vovoulez-vous le l'utiliser ? [1] ou [2] non ? ==> ")
+            
+            else:
+                print("vous n'avez pas de vigile")
+                clients = self.Clients.special(self.vigiles, n)
+                self.temps -= clients[0]
+                self.anger += clients[1]
+        
+        else:
+            clients = self.Clients.special(self.vigiles,n)
+            self.temps -= clients[0]
+            self.anger += clients[1]
+        print(f"temps restant : {self.temps}")
+        print(f"les gens sont ernervés de {self.anger/10} %")
+
+
+    def retrait(self, n: int) -> None:
+        print(f"voici la voiture de la pompe {n}")  
+        pompe = self.pompes.get_pompes(n)
+        print(f"elle est de type'{self.pompes.get_voitures(n)[0]}' et va prendre du  {self.pompes.get_voitures(n)[1]} ")
+        voiture_type = self.Voitures.special(n)
+        match voiture_type:
+            case "gasoil":
+                self.essence.quantite_gasoile -=  int(self.Voitures.prelevement(n))
+                pompe.defiler()
+            case "sans_plomb95":
+                self.essence.quantite_sans_plomb95 -=  int(self.Voitures.prelevement(n))
+                pompe.defiler()
+            case "sans_plomb98":
+                self.essence.quantite_sans_plomb98 -=  int(self.Voitures.prelevement(n))
+                pompe.defiler()
+
+            case _:
+                print("erre;;l,;l,kur")
+                print(f"erreur : {voiture_type}")
+                print(pompe)
+                print(voiture_type)
+
+        print(f"{self.essence.quantite_gasoile} litres de gasoil restant")
+
     def covid(self,intensite: int):
         if intensite == 1:
             while not self.pompes.pompe1.est_vide():
@@ -235,7 +324,9 @@ class Station : # dylan
         self.essence.prix_vente[0] -= random.randint(5, 20) / 100
         self.essence.prix_vente[1] -= random.randint(5, 20) / 100
         self.essence.prix_vente[2] -= random.randint(5, 20) / 100
+        self.anger -= random.randint(5, 20) * intensité
         self.essence.round()
 
 
-a = Station()   
+    def affichage(self) -> str:
+        return f"jour : {self.jour} \n \n{self.pompes} \n \n{self.essence} \n"

@@ -1,9 +1,9 @@
-clients,temps,special
-lamba ,150,normal
-lent,300,lent
-stupide ,0,stupide
-malin ,200,malin
-pas de regle ,400,fou
-file grilleur,150,grilleur
-angry ,175,angry
-policier ,150,cops
+clients,temps,special ,vigile
+lamba ,150,normal,False
+lent,300,lent,False
+stupide,1000,stupide,True
+malin,200,malin,True
+pas de regle ,400,fou,True
+file grilleur,150,grilleur,True
+angry,175,angry,False
+policier ,150,cops,False
