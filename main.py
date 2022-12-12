@@ -19,7 +19,7 @@ def main(station):
                 station.retrait(n)
                 print("\n")
                 print("\n")
-                if event // 3 == 0 and event != 0:
+                if event == 3:
                     station.mutinerie(randint(1, 3))
                     station.n_clients(1)
                     station.retrait(1)

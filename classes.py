@@ -216,7 +216,7 @@ class Station : # dylan
         self.essence.reaprovisionnement()
         self.argent -= (self.essence.prix[0] * 1000 + self.essence.prix[1] * 1000 + self.essence.prix[2] * 1000)
         print(f"jour {self.jour}")
-        print(self.pompes)
+        print()
         print(f"vous avez {self.argent} euros")
         print(f"les gens sont ernervés de {self.anger/10} %")
         print(f"temps restant : {self.temps}")
