@@ -130,7 +130,9 @@ class Essence : # dylan
     def round(self) -> None:
         for i in range(3):
             self.prix_vente[i] = round(self.prix_vente[i], 3)
-
+    def reaprovisionnement(self) -> None:
+        for i in range(3):
+            self.quantite[i] += 1000
    
 
 class Clients: # dylan
@@ -185,18 +187,18 @@ class Voiture: # dylan
         Essence = str(self.voitures[n].file[0][0][1])
         return str(Essence)
 
-
+'''
 p = Pompe()
 v = Voiture(p.get_pompes(1), p.get_pompes(2), p.get_pompes(3))
 n = 2
 print(v.special(n))
 print(v.prelevement(0))
-
+'''
 
 
 class Station : # dylan
     def __init__(self) -> None:
-        self.argent = 10000
+        self.argent = 50_000
         self.pompes = Pompe()
         self.Clients =  Clients(self.pompes.get_pompes(1), self.pompes.get_pompes(2), self.pompes.get_pompes(3))
         self.Voitures = Voiture(self.pompes.get_pompes(1), self.pompes.get_pompes(2), self.pompes.get_pompes(3))
@@ -209,8 +211,13 @@ class Station : # dylan
     def __str__(self) -> str:
         return f"{self.pompes}\n \n{self.essence} \n \n{self.Clients}"
 
-    def augementation(self):
+    def debut_jour(self):
+        '''fonction qui permet de commencer un jour'''
+        self.essence.reaprovisionnement()
+        self.argent -= (self.essence.prix[0] * 1000 + self.essence.prix[1] * 1000 + self.essence.prix[2] * 1000)
         print(f"jour {self.jour}")
+        print(self.pompes)
+        print(f"vous avez {self.argent} euros")
         print(f"les gens sont ernervés de {self.anger/10} %")
         print(f"temps restant : {self.temps}")
         while True:
@@ -237,6 +244,7 @@ class Station : # dylan
         print(f"gasoil : {self.essence.prix_vente[0]} \nsans plomb 95 : {self.essence.prix_vente[1]} \nsans plomb 98 : {self.essence.prix_vente[2]}")
 
     def n_clients(self, n: int) -> None:
+        '''fonction qui permet de faire arriver des clients'''
         print(f"voici le client de la pompe {n}")
         print(f"il est de type'{self.pompes.get_clients(n)[0]}' et  il a pris {self.pompes.get_clients(n)[1]} temps \n")
         if self.pompes.get_clients(n)[3] == "True" :
@@ -256,6 +264,9 @@ class Station : # dylan
                             break
                         case "2":
                             print("vous n'avez pas utilisé de vigile")
+                            clients = self.Clients.special(self.vigiles, n)
+                            self.temps -= clients[0]
+                            self.anger += clients[1]
                             break
                         
                         case _:
@@ -277,30 +288,68 @@ class Station : # dylan
 
 
     def retrait(self, n: int) -> None:
+        '''fonction qui permet de faire retraiter les voitures'''
         print(f"voici la voiture de la pompe {n}")  
         pompe = self.pompes.get_pompes(n)
         print(f"elle est de type'{self.pompes.get_voitures(n)[0]}' et va prendre du  {self.pompes.get_voitures(n)[1]} ")
         voiture_type = self.Voitures.special(n)
         match voiture_type:
             case "gasoil":
-                self.essence.quantite_gasoile -=  int(self.Voitures.prelevement(n))
+                if self.essence.quantite_gasoile <  int(self.Voitures.prelevement(n)):
+                    print("vous n'avez pas assez de gasoil")
+                    print("les clients sont enervés")
+                    self.anger += 10
+                    self.argent += (self.essence.prix_vente[0] * (int(self.Voitures.prelevement(n) - self.essence.quantite_gasoile)))
+                    self.essence.quantite_gasoile = 0
+                else:
+                    self.essence.quantite_gasoile -=  int(self.Voitures.prelevement(n))
                 pompe.defiler()
             case "sans_plomb95":
-                self.essence.quantite_sans_plomb95 -=  int(self.Voitures.prelevement(n))
+                if self.essence.quantite_sans_plomb95 <  int(self.Voitures.prelevement(n)):
+                    print("vous n'avez pas assez de sans plomb 95")
+                    print("les clients sont enervés")
+                    self.anger += 10
+                    self.argent += (self.essence.prix_vente[1] * (int(self.Voitures.prelevement(n) - self.essence.quantite_gasoile)))
+                    self.essence.quantite_sans_plomb95 = 0
+                else:
+                    self.essence.quantite_sans_plomb95 -=  int(self.Voitures.prelevement(n))
                 pompe.defiler()
             case "sans_plomb98":
-                self.essence.quantite_sans_plomb98 -=  int(self.Voitures.prelevement(n))
+                if self.essence.quantite_sans_plomb98 <  int(self.Voitures.prelevement(n)):
+                    print("vous n'avez pas assez de sans plomb 98")
+                    print("les clients sont enervés")
+                    self.anger += 10
+                    self.argent += (self.essence.prix_vente[2] * (int(self.Voitures.prelevement(n) - self.essence.quantite_gasoile)))
+                    self.essence.quantite_sans_plomb98 = 0
+                else:
+                    self.essence.quantite_sans_plomb98 -=  int(self.Voitures.prelevement(n))
+                    self.essence.round()
+                    self.argent += self.essence.prix_vente[2] * self.Voitures.prelevement(n) 
+
+            case "tout":
+                if self.essence.quantite_gasoile <  int(self.Voitures.prelevement(n)) or  self.essence.quantite_sans_plomb95 <  int(self.Voitures.prelevement(n)) or self.essence.quantite_sans_plomb98 <  int(self.Voitures.prelevement(n)):
+                    self.essence.quantite_gasoile =  self.essence.quantite_gasoile - int(self.Voitures.prelevement(n))
+                    self.essence.quantite_sans_plomb95 =  self.essence.quantite_sans_plomb95 - int(self.Voitures.prelevement(n))
+                    self.essence.quantite_sans_plomb98 =  self.essence.quantite_sans_plomb98 - int(self.Voitures.prelevement(n))
+                    self.essence.round()
+                else:
+                    self.essence.quantite_gasoile -=  int(self.Voitures.prelevement(n))
+                    self.essence.quantite_sans_plomb95 -=  int(self.Voitures.prelevement(n))
+                    self.essence.quantite_sans_plomb98 -=  int(self.Voitures.prelevement(n))
+                    self.essence.round()
+
+
                 pompe.defiler()
 
             case _:
-                print("erre;;l,;l,kur")
+                print("erreur")
                 print(f"erreur : {voiture_type}")
                 print(pompe)
                 print(voiture_type)
 
-        print(f"{self.essence.quantite_gasoile} litres de gasoil restant")
 
     def covid(self,intensite: int):
+        '''fonction qui permet de faire la gestion du covid'''
         if intensite == 1:
             while not self.pompes.pompe1.est_vide():
                 self.pompes.pompe1.defiler()
@@ -317,10 +366,14 @@ class Station : # dylan
             print("erreur")
             exit(1)
     def mutinerie (self, intensité: int) -> list:
-         return self.pompes.pompes[random.randint(0,2)].enfiler([["camion essence", "tout", 300*intensité], ["lamda", 200*intensité, 1]])
+        '''fonction qui permet de faire la gestion de la mutinerie'''
+        self.essence.quantite_gasoile -= random.randint(5, 20) * intensité
+        self.essence.quantite_sans_plomb95 -= random.randint(5, 20) * intensité
+        self.essence.quantite_sans_plomb98 -= random.randint(5, 20) * intensité
 
 
     def ristourne(self, intensité: int) -> list:
+        '''fonction qui permet de faire la gestion de la ristourne'''
         self.essence.prix_vente[0] -= random.randint(5, 20) / 100
         self.essence.prix_vente[1] -= random.randint(5, 20) / 100
         self.essence.prix_vente[2] -= random.randint(5, 20) / 100
@@ -329,4 +382,5 @@ class Station : # dylan
 
 
     def affichage(self) -> str:
-        return f"jour : {self.jour} \n \n{self.pompes} \n \n{self.essence} \n"
+        '''fonction qui permet d'afficher les informations'''
+        return f"jour : {self.jour} \n|\n{self.pompes} \n|\n{self.essence} \n"
