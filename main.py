@@ -28,6 +28,7 @@ def main(station):
         station.affichage()
         station.jour += 1
         station.debut_jour()
+        station.pompes.remplir_pompe_debut()   
         print("\n")
         sleep(1)
         if station.anger >= 100 * 10 :

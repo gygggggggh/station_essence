@@ -116,7 +116,7 @@ class Essence : # dylan
 
         self.prix = [self.prix_gasoile, self.prix_sans_plomb95, self.prix_sans_plomb98]
         self.quantite = [self.quantite_gasoile, self.quantite_sans_plomb95, self.quantite_sans_plomb98]
-        self.prix_vente = [self.prix_gasoile + 0.25  , self.prix_sans_plomb95 + 0.25, self.prix_sans_plomb98 + 0.25]
+        self.prix_vente = [self.prix_gasoile + 0.5  , self.prix_sans_plomb95 + 0.5, self.prix_sans_plomb98 + 0.5]
 
         self.round()
 
